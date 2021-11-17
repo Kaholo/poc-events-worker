@@ -1,6 +1,6 @@
 interface InitExecutePipeline {
   pipelineId: string;
-  trigger: {
+  trigger?: {
     name: string;
     payload: any;
   }

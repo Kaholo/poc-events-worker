@@ -1,4 +1,4 @@
-const DB: {[key: string]: any} = {
+const DB: any = {
   agents: {
     keyA: {
       key: "keyA",

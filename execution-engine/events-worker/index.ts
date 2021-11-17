@@ -1,13 +1,15 @@
 import {EventData} from "../events-sdk/events-types"
 
+const queuesMock: any = {}
+
 
 class EventsWorker {
   public async consume<E extends keyof EventData>(event: E, callback: (data: EventData[E]) => void) {
-    console.log(event, callback);
+    queuesMock[event] = callback;
   }
 
   public async publish<E extends keyof EventData>(event: E, data: EventData[E]) {
-    console.log(event, data);
+    await queuesMock[event](data);
   }
 }
 
