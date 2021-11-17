@@ -8,6 +8,7 @@ import {EventType} from "../events-sdk/events-types";
 class PipelineExecutionService {
   public async init() {
     await eventsWorker.consume(EventType.InitExecutePipeline, async (data) => {
+      console.info("PipelineExecutionService - InitExecutePipeline");
       const executionId = uuidv4();
       await stateService.transaction(executionId, async () => {
         const willBeExecutedNow = await stateService.getPendingExecutions() || true;
@@ -23,12 +24,13 @@ class PipelineExecutionService {
     });
 
     await eventsWorker.consume(EventType.ExecutePipeline, async (data) => {
+      console.info("PipelineExecutionService - ExecutePipeline");
       await stateService.setExecution(data.executionId, {state: "running"});
       await eventsWorker.publish(EventType.CreateExecutionQueues, {executionId: data.executionId});
       const pipeline = await stateService.getPipelineByExecutionId(data.executionId);
       const startActions = pipeline.actions.filter((action: any) => action.start);
       for (const startAction of startActions) {
-        await eventsWorker.publish(EventType.ExecuteAction, startAction);
+        await eventsWorker.publish(EventType.ExecuteAction, {actionId: startAction.id, executionId: data.executionId});
       }
     });
   }

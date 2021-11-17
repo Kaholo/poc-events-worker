@@ -1,4 +1,4 @@
-interface InitExecutePipeline {
+interface InitExecutePipelineData {
   pipelineId: string;
   trigger?: {
     name: string;
@@ -10,7 +10,12 @@ interface ExecutePipelineData {
   executionId: string;
 }
 
-interface CreateExecutionQueues {
+interface ExecuteActionData {
+  executionId: string;
+  actionId: string;
+}
+
+interface CreateExecutionQueuesData {
   executionId: string;
 }
 
@@ -45,14 +50,14 @@ export enum EventType {
 }
 
 export interface EventData {
-  [EventType.InitExecutePipeline]: InitExecutePipeline;
+  [EventType.InitExecutePipeline]: InitExecutePipelineData;
   [EventType.ExecutePipeline]: ExecutePipelineData;
-  [EventType.ExecuteAction]: any;
+  [EventType.ExecuteAction]: ExecuteActionData;
   [EventType.FinishPipelineExecution]: any;
   [EventType.FinishActionExecution]: any;
   [EventType.GetExecutionData]: any;
   [EventType.SetExecutionData]: any;
-  [EventType.CreateExecutionQueues]: CreateExecutionQueues;
+  [EventType.CreateExecutionQueues]: CreateExecutionQueuesData;
   [EventType.DestroyExecutionQueues]: any;
 }
 

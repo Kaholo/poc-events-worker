@@ -9,7 +9,7 @@ class EventsWorker {
   }
 
   public async publish<E extends keyof EventData>(event: E, data: EventData[E]) {
-    await queuesMock[event](data);
+    queuesMock[event](data);
   }
 }
 

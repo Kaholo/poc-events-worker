@@ -9,6 +9,7 @@ class QueuesService {
 
     await eventsWorker.consume(EventType.CreateExecutionQueues, async (data) => {
       // create queues for particular execution usage
+      console.info("QueuesService - CreateExecutionQueues");
     })
   }
 }
