@@ -1,5 +1,4 @@
-import eventsWorker from "../events-worker"
-import {EventType} from "../events-sdk/events-types"
+import {eventsWorker, EventType} from "../events-worker";
 
 
 class QueuesService {

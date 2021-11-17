@@ -1,4 +1,4 @@
-import {EventData} from "../events-sdk/events-types"
+import {EventType, EventData} from "./events"
 
 const queuesMock: any = {}
 
@@ -13,4 +13,5 @@ class EventsWorker {
   }
 }
 
-export default new EventsWorker();
+export const eventsWorker = new EventsWorker();
+export {EventType, EventData};

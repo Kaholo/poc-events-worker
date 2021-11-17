@@ -1,6 +1,5 @@
-import eventsWorker from "../events-worker";
+import {eventsWorker, EventType} from "../events-worker";
 import stateService from "../state-service";
-import {EventType} from "../events-sdk/events-types";
 
 
 class ActionExecutionService {
@@ -8,7 +7,7 @@ class ActionExecutionService {
     await eventsWorker.consume(EventType.ExecuteAction, async (data) => {
       const pipeline = await stateService.getPipelineByExecutionId(data.executionId);
       const action = pipeline.actions.find((action: any) => action.id === data.actionId);
-      console.info("ActionExecutionService - ExecuteAction", action.id);
+      console.info("ActionExecutionService - ExecuteAction", action.id,  `sleep(${action.delay}s)`);
       await new Promise(resolve => setTimeout(resolve, action.delay * 1000));
       const nextActionIds = action.next || [];
       for (const nextActionId of nextActionIds) {

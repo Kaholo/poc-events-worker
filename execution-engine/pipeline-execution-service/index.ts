@@ -1,8 +1,7 @@
 import {v4 as uuidv4} from "uuid";
 
-import eventsWorker from "../events-worker";
+import {eventsWorker, EventType} from "../events-worker";
 import stateService from "../state-service";
-import {EventType} from "../events-sdk/events-types";
 
 
 class PipelineExecutionService {
