@@ -12,11 +12,11 @@ class PipelineExecutionService {
       await stateService.transaction(executionId, async () => {
         const willBeExecutedNow = await stateService.getPendingExecutions() || true;
         if (willBeExecutedNow) {
-          await stateService.setExecution(executionId, {state: "init"});
+          await stateService.setExecution(executionId, {state: "init", pipeline: data.pipelineId});
           // below call and possible other not related to execution state should be out of transaction
           await eventsWorker.publish(EventType.ExecutePipeline, {executionId});
         } else if ("Should bes scheduled as pending") {
-          await stateService.setExecution(executionId, {state: "pending"});
+          await stateService.setExecution(executionId, {state: "pending", pipeline: data.pipelineId});
           await stateService.setPendingExecutions([executionId])
         }
       })
@@ -25,7 +25,8 @@ class PipelineExecutionService {
     await eventsWorker.consume(EventType.ExecutePipeline, async (data) => {
       await stateService.setExecution(data.executionId, {state: "running"});
       await eventsWorker.publish(EventType.CreateExecutionQueues, {executionId: data.executionId});
-      const startActions = ['findStartActions()'];
+      const pipeline = await stateService.getPipelineByExecutionId(data.executionId);
+      const startActions = pipeline.actions.filter((action: any) => action.start);
       for (const startAction of startActions) {
         await eventsWorker.publish(EventType.ExecuteAction, startAction);
       }

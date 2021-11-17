@@ -14,5 +14,5 @@ import {EventType} from "./events-sdk/events-types"
   await actionExecutionService.init();
   console.info('DONE');
 
-  await eventsWorker.publish(EventType.InitExecutePipeline, {pipelineId: "any-id"})
+  await eventsWorker.publish(EventType.InitExecutePipeline, {pipelineId: "pipeline1"})
 })();

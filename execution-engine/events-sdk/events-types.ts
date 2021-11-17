@@ -23,9 +23,12 @@ export enum EventType {
 
   // Publisher: PipelineExecutionService
   // Consumer: PipelineExecutionService
-  // Description: Start the execution
+  // Description: Start the execution of the pipeline
   ExecutePipeline="ExecutePipeline",
 
+  // Publisher: PipelineExecutionService
+  // Consumer: ActionExecutionService
+  // Description: Start the execution of single action
   ExecuteAction="ExecuteAction",
 
   FinishPipelineExecution="FinishPipelineExecution",
