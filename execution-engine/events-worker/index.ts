@@ -3,7 +3,7 @@ import {EventType, EventData} from "./events"
 const queuesMock: any = {}
 
 
-class EventsWorker {
+export class EventsWorker {
   public async consume<E extends keyof EventData>(event: E, callback: (data: EventData[E]) => void) {
     queuesMock[event] = callback;
   }

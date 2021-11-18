@@ -53,7 +53,7 @@ const DB: any = {
   pendingExecutions: ["sampleId3"]
 };
 
-class StateService {
+export class StateService {
   public async init() {
     await Promise.resolve();
   }
