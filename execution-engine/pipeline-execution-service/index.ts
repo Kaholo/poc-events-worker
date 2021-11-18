@@ -15,7 +15,7 @@ class PipelineExecutionService {
           await stateService.setExecution(executionId, {state: "init", pipeline: data.pipelineId});
           // below call and possible other not related to execution state should be out of transaction
           await eventsWorker.publish(EventType.ExecutePipeline, {executionId});
-        } else if ("Should bes scheduled as pending") {
+        } else if ("Should schedule as pending") {
           await stateService.setExecution(executionId, {state: "pending", pipeline: data.pipelineId});
           await stateService.setPendingExecutions([executionId])
         }
