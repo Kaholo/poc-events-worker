@@ -2,7 +2,8 @@
   "name": "events-worker",
   "scripts": {
     "dev": "ts-node index.ts",
-    "dev:watch": "ts-node-dev index.ts"
+    "dev:watch": "ts-node-dev index.ts",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "27.0.2",
