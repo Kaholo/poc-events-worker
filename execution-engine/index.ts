@@ -10,7 +10,7 @@ import {eventsWorker, EventType} from "./events-worker";
   await queuesService.init();
   await stateService.init();
   await pipelineExecutionService.init();
-  await actionExecutionService.init(eventsWorker, stateService);
+  await actionExecutionService.init();
 
   await eventsWorker.publish(EventType.InitExecutePipeline, {pipelineId: "pipeline1"});
 })();

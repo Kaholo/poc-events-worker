@@ -1,9 +1,9 @@
-import {EventType, EventsWorker} from "../events-worker";
-import {StateService} from "../state-service";
+import {eventsWorker, EventType} from "../events-worker";
+import stateService from "../state-service";
 
 
 class ActionExecutionService {
-  public async init(eventsWorker: EventsWorker, stateService: StateService) {
+  public async init() {
     await eventsWorker.consume(EventType.ExecuteAction, async (data) => {
       const pipeline = await stateService.getPipelineByExecutionId(data.executionId);
       const action = pipeline.actions.find((action: any) => action.id === data.actionId);
